@@ -1,66 +1,21 @@
 body{ 
-  background-color:black;
-  color:white;
-  font-family:'Times New Roman', Times, serif;
+  background-color:lightskyblue;
+  color:black;
+  font-family:monospace;
   font-weight:normal;
   line-height:25px;
   font-size:18px;
   margin:20px 10px 20px 10px;
 }
 h1{
-  color:cornsilk;
+  color:black;
 }
-.alue1{
-  padding:10px;
-  border-right-style:double;
-  border-left-style:dashed;
-  border-top-style:dotted;
-  border-bottom-style:solid;
-}
-.sisalto1 h1{
-  font-family:Tahoma;
-  text-decoration:underline;
-  text-transform:uppercase;
-  letter-spacing:0.5em;
-  word-spacing:1em;
-}
-.alue1{
-  width:70%;
-  margin:auto;
-}
-.linkkilista{
-  margin-top:10px;
-  border:1px black dashed;
-}
-.linkkilista h2{
-  text-align:center;
-  color:aquamarine;
-}
-.linkkilista ul{
-  list-style-type:lower-greek;
-}
-a{
-text-decoration:none;
-color:black;
-}
-a:hover{
-  color:white;
-}
-a:active{
-  color:blue;
-}
-a:visited{
-  color:green;
-}
-.nappula{
-  background-color:black;
-  color:white;
-}
+
 .yhteydenotto label{
   display:block;
 }
 .yhteydenotto input[type="text"], .yhteydenotto textarea{
-  padding:10px;
+  padding:15px;
   width:100%;
 }
 ul{
@@ -68,12 +23,12 @@ ul{
 }
 ul li{
   padding:5px;
-  background-color:lightcoral;
+  background-color:lavender;
   margin:5px 0px;
 }
 header{
-  background-color:lightcoral;
-  padding:10px;
+  background-color:rgb(238, 238, 238);
+  padding:15px;
   text-align:center;
 }
 .yhteydenotto input[type ="text"], .yhteydenotto textarea{
