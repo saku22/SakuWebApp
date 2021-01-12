@@ -48,13 +48,13 @@
           dataHum.addColumn('number', '%');
           
           const historia = data.map(function(mittaus){
+              
               dataTemp.addRows([
                 [(mittaus.Timestamp).split('.')[0], parseInt(mittaus.Temp)]
               ]);
-
-          const historia = data.map(function(mittaus){
+              
               dataHum.addRows([
-                [(mittaus.Timestamp).split('.')[0], parseInt(mittaus.dataHum)]
+                [(mittaus.Timestamp).split('.')[0], parseInt(mittaus.Hum)]
               ]);
               taulukko = taulukko + `<tr><td>${mittaus.Hum}</td><td>${mittaus.Temp}</td></tr>`; 
           });
@@ -74,8 +74,8 @@
           var chart = new google.visualization.LineChart(document.getElementById('lampotila_div'));
           chart.draw(dataTemp, optionsTemp);
 
-          var chart = new google.visualization.ColumnChart(document.getElementById('ilmankosteus_div'));
-          chart.draw(dataHum, optionsHum);
+          var chartHum = new google.visualization.ColumnChart(document.getElementById('ilmankosteus_div'));
+          chartHum.draw(dataHum, optionsHum);
         });   
       }
 
