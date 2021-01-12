@@ -1,12 +1,88 @@
 <html>
   <head>
-    <title>Sääasema</title>
+    <title>Sääasema</title> 
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
+    </script> 
   </head>
   <body>
-    <link rel="stylesheet" type="text/css" href="weather.css" >
-    <h1>Sääasema</h1>
-    <div class="Taulukko">Ladataan...</div>
-    <script src="weather.js"></script>
-  </body>
 
-  
+    <script>
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      var getJSON = function(url, callback) {
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.responseType = 'json';
+        
+        xhr.onload = function() {
+        
+            var status = xhr.status;
+            
+            if (status == 200) {
+                callback(null, xhr.response);
+            } else {
+                callback(status);
+            }
+        };
+        
+        xhr.send();
+      };
+
+///////////////////////////////////////////////////////////
+
+
+ function drawChart() {
+        getJSON('https://func-weather.azurewebsites.net/api/HttpTriggerCSharp2?code=03Hf14xSawGyeGtfxZTCLJ5mGLx0GGusap2f3zssPqg6n3KriqizHg==&deviceId=2f002a001947393035313138&amount=10', function(err, data){
+          let taulukko = `<h1>Sääasema</h1><table width="50%" align="center" style="border=1px solid black"><tr><td><b>Ilmankosteus %</b></td><td><b>Lämpötila</b></td></tr>`;
+          // Create the data table.
+          var dataTemp = new google.visualization.DataTable();
+          dataTemp.addColumn('string', 'Pvm');
+          dataTemp.addColumn('number', 'Lämpötila');
+
+          var dataHum = new google.visualization.DataTable();
+          dataHum.addColumn('string', 'Pvm');
+          dataHum.addColumn('number', '%');
+          
+          const historia = data.map(function(mittaus){
+              dataTemp.addRows([
+                [(mittaus.Timestamp).split('.')[0], parseInt(mittaus.Temp)]
+              ]);
+
+          const historia = data.map(function(mittaus){
+              dataHum.addRows([
+                [(mittaus.Timestamp).split('.')[0], parseInt(mittaus.dataHum)]
+              ]);
+              taulukko = taulukko + `<tr><td>${mittaus.Hum}</td><td>${mittaus.Temp}</td></tr>`; 
+          });
+          taulukko = taulukko + `</table>`;
+          document.querySelector('#taulukko_div').innerHTML = taulukko;
+
+          // Set chart options
+          var optionsTemp = {'title':'Lämpötila',
+                        'width':1200,
+                        'height':300};
+
+          var optionsHum = {'title':'Ilmankosteus',
+                        'width':1200,
+                        'height':300};
+
+          // Instantiate and draw our chart, passing in some options.
+          var chart = new google.visualization.LineChart(document.getElementById('lampotila_div'));
+          chart.draw(dataTemp, optionsTemp);
+
+          var chart = new google.visualization.ColumnChart(document.getElementById('ilmankosteus_div'));
+          chart.draw(dataHum, optionsHum);
+        });   
+      }
+
+    </script>
+    <div id="taulukko_div">Lataa...</div>
+    <div id="lampotila_div"></div><br></br>
+    <div id="ilmankosteus_div"></div><br></br>
+    <!--script src="weather.js"></script-->
+  </body>
+</html>
